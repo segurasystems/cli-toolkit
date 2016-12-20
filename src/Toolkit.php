@@ -8,7 +8,6 @@ use PhpSchool\CliMenu\CliMenuBuilder as GuiBuilder;
 
 class Toolkit
 {
-
     protected $menuItems = [];
 
     /** @var GuiBuilder */
@@ -77,9 +76,9 @@ class Toolkit
     public function setGuiMode(bool $guiMode): Toolkit
     {
         $this->guiMode = $guiMode;
-        if($guiMode){
+        if ($guiMode) {
             echo "GUI MODE ENABLED\n";
-        }else{
+        } else {
             echo "GUI MODE DISABLED\n";
         }
         return $this;
@@ -93,9 +92,9 @@ class Toolkit
     protected function decideMode()
     {
         global $argv;
-        if(count($argv) > 1){
+        if (count($argv) > 1) {
             $this->setGuiMode(false);
-        }else{
+        } else {
             $this->setGuiMode(true);
         }
     }
@@ -104,9 +103,9 @@ class Toolkit
     {
         $this->decideMode();
 
-        if($this->isGuiMode()) {
+        if ($this->isGuiMode()) {
             $this->runGui();
-        }else{
+        } else {
             $this->runCli();
         }
         return true;
@@ -116,7 +115,7 @@ class Toolkit
     {
         foreach ($this->menuItems as $menuItem) {
             /** @var $menuItem MenuItem */
-            $this->guiMenu->addItem($menuItem->getActionName(), function(CliMenu $menu) use ($menuItem){
+            $this->guiMenu->addItem($menuItem->getActionName(), function (CliMenu $menu) use ($menuItem) {
                 $callback = $menuItem->getCallback();
                 $callback();
                 self::waitForKeypress();
@@ -132,24 +131,22 @@ class Toolkit
     protected function runCli()
     {
         global $argv;
-        foreach($this->menuItems as $menuItem){
+        foreach ($this->menuItems as $menuItem) {
             /** @var $menuItem MenuItem */
             $this->cliMenu->command($menuItem->getCommand(), $menuItem->getActionDescription());
         }
         $args = $this->cliMenu->parse($argv, true);
 
-        foreach($this->menuItems as $menuItem){
+        foreach ($this->menuItems as $menuItem) {
             /** @var $menuItem MenuItem */
-            if($args->getCommand() == $menuItem->getCommand()){
+            if ($args->getCommand() == $menuItem->getCommand()) {
                 $callback = $menuItem->getCallback();
                 $callback();
             }
         }
-
     }
 
-
-    static public function waitForKeypress($waitMessage = "Press ENTER key to continue.")
+    public static function waitForKeypress($waitMessage = "Press ENTER key to continue.")
     {
         echo "\n{$waitMessage}\n";
         return trim(fgets(fopen('php://stdin', 'r')));

@@ -4,7 +4,6 @@ namespace Segura\CLI;
 
 class MenuItem
 {
-
     protected $command;
     protected $actionName;
     protected $actionDescription;
@@ -18,7 +17,7 @@ class MenuItem
             ->setCallback($callback);
     }
 
-    static public function Create(string $command, string $actionName, callable $callback = null)
+    public static function Create(string $command, string $actionName, callable $callback = null)
     {
         return new self($command, $actionName, $callback);
     }
