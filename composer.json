@@ -17,12 +17,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "Segura\\Cli\\": "src"
+            "Segura\\CLI\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Segura\\Cli\\Test\\": "tests/"
+            "Segura\\CLI\\Test\\": "tests/"
         }
     }
 }
