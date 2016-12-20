@@ -1,0 +1,28 @@
+{
+    "name": "segura/cli-toolkit",
+    "type": "library",
+    "require": {
+        "raveren/kint": "^1.0",
+        "php-school/cli-menu": "^2.0",
+        "vanilla/garden-cli": "^1.6"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7"
+    },
+    "authors": [
+        {
+            "name": "Matthew Baggett",
+            "email": "matthew@baggett.me"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Segura\\Cli\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Segura\\Cli\\Test\\": "tests/"
+        }
+    }
+}
