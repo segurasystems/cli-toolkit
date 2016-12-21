@@ -5,11 +5,15 @@ require_once("vendor/autoload.php");
 
 use \Segura\CLI;
 
-$cli = new CLI\Toolkit();
-$cli->addMenu(
-    CLI\MenuItem::Create("time", "Time", function(){
-        echo date("Y-m-d H:i:s")."\n";
-    })
-);
+CLI\Toolkit::Factory()
+    ->addMenu(
+        CLI\MenuItem::Create("time", "Time", function(){
+            echo date("Y-m-d H:i:s")."\n";
+        })
+    )
+    ->addMenu(
+        CLI\SubMenu::Create("SubMenu")
+            ->addMenu()
+    );
 
 $cli->run();

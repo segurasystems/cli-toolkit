@@ -25,6 +25,11 @@ class Toolkit
         $this->cliMenu = new CliBuilder();
     }
 
+    static public function Factory()
+    {
+        return new self();
+    }
+
     /**
      * @return array
      */
@@ -87,6 +92,7 @@ class Toolkit
     public function addMenu(MenuItem $menuItem)
     {
         $this->menuItems[] = $menuItem;
+        return $this;
     }
 
     protected function decideMode()
