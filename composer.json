@@ -1,7 +1,8 @@
 {
     "name": "segura/cli-toolkit",
     "require": {
-        "php-school/cli-menu": "^2.0"
+        "php-school/cli-menu": "^2.0",
+		"deweller/cliopts": "^1.0.0"
     },
     "authors": [
         {
