@@ -1,0 +1,11 @@
+{
+    "name": "segura/cli-toolkit",
+    "require": {
+        "php-school/cli-menu": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "CLIToolkit\\": "src"
+        }
+    }
+}
