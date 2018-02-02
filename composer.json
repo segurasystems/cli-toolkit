@@ -3,6 +3,12 @@
     "require": {
         "php-school/cli-menu": "^2.0"
     },
+    "authors": [
+        {
+            "name": "Matthew Baggett",
+            "email": "matt.baggett@segura.co.uk"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "CLIToolkit\\": "src"
