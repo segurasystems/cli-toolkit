@@ -38,16 +38,33 @@ class Item extends Base {
     }
 
     private function sort($a,$b){
-        return strlen($b)-strlen($a);
+        return strlen($a)-strlen($b);
     }
 
     public function getFlagString(){
         usort($this->flags,[$this,'sort']);
 
-        return implode(" ", $this->flags);
+        return implode(", ", $this->flags);
     }
 
     public function getLabel(){
         return $this->label;
+    }
+
+    public function isFlag(string $flagNameToCheck) : bool{
+        foreach($this->flags as $flag){
+            if($this->stringMangle($flag) == $this->stringMangle($flagNameToCheck)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private function stringMangle(string $string){
+        return preg_replace("/[^[:alnum:][:space:]]/u", '', $string);
+    }
+
+    public function getCallback(){
+        return $this->callback;
     }
 }
