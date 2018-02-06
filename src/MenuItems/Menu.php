@@ -18,7 +18,7 @@ class Menu extends Base{
      * @param Item[] $arrayOfItems
      * @return Menu
      */
-    public static function Factory(array $arrayOfItems = [])
+    public static function Factory(array $arrayOfItems = []) : Menu
     {
         $menu = new self();
         foreach($arrayOfItems as $item) {
@@ -31,7 +31,7 @@ class Menu extends Base{
      * @param Item $item
      * @return $this
      */
-    public function addItem(Item $item)
+    public function addItem(Item $item) : Menu
     {
         $this->items[] = $item;
         return $this;
@@ -42,7 +42,7 @@ class Menu extends Base{
      * @param $name
      * @return $this
      */
-    public function addOptionalCliParam($flag, $name){
+    public function addOptionalCliParam($flag, $name) : Menu {
         $this->cliOpts[$flag] = $name;
         return $this;
     }
@@ -50,13 +50,15 @@ class Menu extends Base{
     /**
      * @return string[]
      */
-    public function getFlags(){
+    public function getFlags() : array{
         $flags = [];
         foreach($this->items as $item){
-            if($item instanceof Item){
-                $flags[$item->getFlagString()] = $item;
-            }elseif($item instanceof Menu){
-                $flags.= $item->getFlags();
+            if($item->hasFlags()){
+                if($item instanceof Item){
+                    $flags[$item->getFlagString()] = $item;
+                }elseif($item instanceof Menu){
+                    $flags.= $item->getFlags();
+                }
             }
         }
         return $flags;
@@ -109,7 +111,7 @@ class Menu extends Base{
 
     }
 
-    public function getArgumentValues(){
+    public function getArgumentValues() : ArgumentValues{
         return $this->argumentValues;
     }
 }
