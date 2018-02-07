@@ -2,6 +2,6 @@
 
 namespace CLIToolkit\MenuItems;
 
-abstract class Base{
-
+abstract class Base
+{
 }

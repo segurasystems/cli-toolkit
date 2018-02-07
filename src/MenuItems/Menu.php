@@ -5,7 +5,8 @@ namespace CLIToolkit\MenuItems;
 use CLIOpts\CLIOpts;
 use CLIOpts\Values\ArgumentValues;
 
-class Menu extends Base{
+class Menu extends Base
+{
     /** @var Item[] */
     protected $items = [];
 
@@ -21,7 +22,7 @@ class Menu extends Base{
     public static function Factory(array $arrayOfItems = []) : Menu
     {
         $menu = new self();
-        foreach($arrayOfItems as $item) {
+        foreach ($arrayOfItems as $item) {
             $menu->addItem($item);
         }
         return $menu;
@@ -42,7 +43,8 @@ class Menu extends Base{
      * @param $name
      * @return $this
      */
-    public function addOptionalCliParam($flag, $name) : Menu {
+    public function addOptionalCliParam($flag, $name) : Menu
+    {
         $this->cliOpts[$flag] = $name;
         return $this;
     }
@@ -50,13 +52,14 @@ class Menu extends Base{
     /**
      * @return string[]
      */
-    public function getFlags() : array{
+    public function getFlags() : array
+    {
         $flags = [];
-        foreach($this->items as $item){
-            if($item->hasFlags()){
-                if($item instanceof Item){
+        foreach ($this->items as $item) {
+            if ($item->hasFlags()) {
+                if ($item instanceof Item) {
                     $flags[$item->getFlagString()] = $item;
-                }elseif($item instanceof Menu){
+                } elseif ($item instanceof Menu) {
                     $flags.= $item->getFlags();
                 }
             }
@@ -64,19 +67,20 @@ class Menu extends Base{
         return $flags;
     }
 
-    public function run(){
+    public function run()
+    {
         $flags = $this->getFlags();
 
         $arguments = "Usage: {self} [options]\n";
 
-        foreach($flags as $flag => $item){
-            if($item instanceof Item) {
+        foreach ($flags as $flag => $item) {
+            if ($item instanceof Item) {
                 $arguments .= "  {$flag} {$item->getLabel()}\n";
             }
         }
         $arguments.="  -h --help Show this help\n";
 
-        if(count($this->cliOpts) > 0) {
+        if (count($this->cliOpts) > 0) {
             $arguments.= "\n\n";
 
             foreach ($this->cliOpts as $flag => $description) {
@@ -90,15 +94,16 @@ class Menu extends Base{
 
         if ($this->argumentValues->count()) {
             return $this->runNonInteractive();
-        }else{
+        } else {
             return $this->runInteractive();
         }
     }
 
-    public function runNonInteractive(){
-        foreach($this->getArgumentValues() as $name => $value){
-            foreach($this->items as $item){
-                if($item->isFlag($name)){
+    public function runNonInteractive()
+    {
+        foreach ($this->getArgumentValues() as $name => $value) {
+            foreach ($this->items as $item) {
+                if ($item->isFlag($name)) {
                     $callback = $item->getCallback();
                     $callback($this);
                 }
@@ -106,12 +111,12 @@ class Menu extends Base{
         }
     }
 
-
-    public function runInteractive(){
-
+    public function runInteractive()
+    {
     }
 
-    public function getArgumentValues() : ArgumentValues{
+    public function getArgumentValues() : ArgumentValues
+    {
         return $this->argumentValues;
     }
 }
